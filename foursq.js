@@ -1,5 +1,5 @@
 /**
- * Created by Neha on 27/5/15.
+ * Created by ANIL on 27/5/15.
  */
 
 var foursquareApi = {
@@ -89,15 +89,14 @@ var foursquareApi = {
         }
         return year + month + day;
     },
-    search: function () {
+    search: function (coordinates) {
         //var location = "40.7,-74"; //chicago
-        var location = "51.512535,-0.132351"; //london, shaftesbury avenue
+//        var location = "51.512535,-0.132351"; //london, shaftesbury avenue
         //var location = "29.43601,106.503525"; //china
         //var location = "51.165691,10.451526"; //germany
 
 
         // this.viewTrends(location); @NEHA
-
         //this.exploreVenueCategories(); @NEHA
 
         //this.exploreCategories();
@@ -110,7 +109,7 @@ var foursquareApi = {
 
         var that = this;
 
-        var url = "https://api.foursquare.com/v2/venues/search?ll=" + location + "&query=" + query + "&limit=" + limit + "&oauth_token=" + this.oauth_token + "&v=" + latestversion;
+        var url = "https://api.foursquare.com/v2/venues/search?ll=" + coordinates + "&query=" + query + "&limit=" + limit + "&oauth_token=" + this.oauth_token + "&v=" + latestversion;
         console.log("url", url);
         this.getJson(url, function (data) {
             console.log("getting data ", data);
@@ -314,7 +313,7 @@ var foursquareApi = {
     },
     init: function () {
 //        alert("in init now searching");
-        this.search();
+
     },
     startWidget: function () {
         window.___fourSq = {};
@@ -327,12 +326,8 @@ var foursquareApi = {
     },
 
     userSubmit: function () {
-        var txt = "";
-        if (document.getElementById('id1').validity.rangeOverflow) {
-            txt = "Value too large";
-        } else {
-            txt = "Input OK";
-        }
+        var txt =   document.getElementById('searchTxt').value;
 
+        this.search(txt);
     }
 };
